@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Email Verification</title>
+    <link rel="stylesheet" type="text/css" href="failed.css">
+</head>
+<body>
+<div class="verification-container">
+    <h1>Email Verification Failed</h1>
+    <p th:text="${message}">Email verification failed or token is invalid.</p>
+    <a href="/register">Click here to register again</a>
+</div>
+</body>
+</html>

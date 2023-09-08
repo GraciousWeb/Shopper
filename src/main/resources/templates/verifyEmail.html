@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Email Verification</title>
+</head>
+<body>
+
+<!-- Display on success -->
+<form th:if="${success}" th:action="@{/nextStep}" method="post">
+    <h1>Email Verification Success</h1>
+    <p th:text="${message}">Your email has been successfully verified.</p>
+
+    <button type="submit">Proceed to Dashboard</button>
+</form>
+
+<!-- Display on failure -->
+<form th:if="${!success}" th:action="@{/retryVerification}" method="post">
+    <h1>Email Verification Failed</h1>
+    <p th:text="${error}">There was an issue verifying your email.</p>
+
+    <button type="submit">Resend Verification Email</button>
+</form>
+
+</body>
+</html>
+
