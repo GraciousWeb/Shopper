@@ -10,7 +10,7 @@
 <div class="login-page">
     <div class="form">
         <!-- Registration Form -->
-        <form th:action="@{/register}" th:object="${signUpDto}" method="post" class="register-form">
+        <form th:action="@{/register}" th:object="${userDTO}" method="post" class="register-form">
             <input type="text" th:field="*{username}" placeholder="name"/>
             <input type="password" th:field="*{password}" placeholder="password"/>
             <input type="text" th:field="*{email}" placeholder="email address"/>

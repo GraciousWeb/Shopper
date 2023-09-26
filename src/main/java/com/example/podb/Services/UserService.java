@@ -3,20 +3,16 @@ package com.example.podb.Services;
 
 import com.example.podb.DTO.AuthenticationResponse;
 import com.example.podb.DTO.LoginDto;
-import com.example.podb.DTO.SignUpDto;
-import com.example.podb.Model.LocalUser;
-import com.example.podb.token.PasswordToken;
+import com.example.podb.DTO.UserDTO;
 
-import java.util.Optional;
-
-public interface UserServices {
-    String registerUser(SignUpDto signUpDto);
+public interface UserService {
+    UserDTO registerUser(UserDTO userDTO);
     AuthenticationResponse loginUser(LoginDto loginDto);
-    SignUpDto createAdmin(SignUpDto userDto);
+    UserDTO createAdmin(UserDTO userDto);
     void enableUser(String verificationToken);
     boolean isTokenValid(String verificationToken);
     boolean isUserAlreadyVerified(String verificationToken);
-    PasswordToken generatePasswordToken();
+    String generateConfirmationToken();
     Boolean verifyEmail (String verificationToken);
 
 

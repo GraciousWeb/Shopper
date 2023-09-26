@@ -5,7 +5,6 @@ import jakarta.persistence.*;
 import lombok.*;
 
 import java.time.LocalDateTime;
-import java.util.UUID;
 
 @Getter
 @Setter
@@ -14,7 +13,7 @@ import java.util.UUID;
 @Builder
 @AllArgsConstructor
 
-public class PasswordToken {
+public class ConfirmationToken {
 
 
     @Id
@@ -31,8 +30,8 @@ public class PasswordToken {
     @JoinColumn(nullable = false, name = "local_user")
     private LocalUser user;
 
-    public PasswordToken(String verificationToken, LocalDateTime createdAt, LocalDateTime expiresAt, LocalUser user) {
-        this.verificationToken = UUID.randomUUID().toString();
+    public ConfirmationToken(String verificationToken, LocalDateTime createdAt, LocalDateTime expiresAt, LocalUser user) {
+        this.verificationToken = verificationToken;
         this.createdAt = createdAt;
         this.expiresAt = expiresAt;
         this.user = user;

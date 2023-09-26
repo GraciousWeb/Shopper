@@ -2,9 +2,9 @@ package com.example.podb.Controller;
 
 
 import com.example.podb.DTO.ProductDTO;
-import com.example.podb.DTO.SignUpDto;
+import com.example.podb.DTO.UserDTO;
 import com.example.podb.Services.AdminService;
-import com.example.podb.Services.UserServices;
+import com.example.podb.Services.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -15,12 +15,12 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("api/v1/admins")
 public class AdminController {
     private final AdminService adminService;
-    private final UserServices userServices;
+    private final UserService userService;
 
 
     @PostMapping("createAdmin")
-    public ResponseEntity<SignUpDto> createAdmin(@RequestBody SignUpDto signUpDto) {
-        SignUpDto registeredUser = userServices.createAdmin(signUpDto);
+    public ResponseEntity<UserDTO> createAdmin(@RequestBody UserDTO userDTO) {
+        UserDTO registeredUser = userService.createAdmin(userDTO);
         return new ResponseEntity<>(registeredUser, HttpStatus.CREATED);
 
     }

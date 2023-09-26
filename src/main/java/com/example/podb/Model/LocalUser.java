@@ -1,7 +1,7 @@
 package com.example.podb.Model;
 
 import com.example.podb.Enums.Roles;
-import com.example.podb.token.PasswordToken;
+import com.example.podb.token.ConfirmationToken;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -25,9 +25,6 @@ public class LocalUser implements UserDetails {
         private Long id;
 
 
-        @Column(name = "username", nullable = false, unique = true)
-        private String username;
-
         @Column(name = "password", nullable = false, length = 1000)
             private String password;
 
@@ -40,17 +37,22 @@ public class LocalUser implements UserDetails {
         @Column(name = "lastName", nullable = false)
         private String lastName;
         @OneToOne(mappedBy = "user", cascade = {CascadeType.PERSIST, CascadeType.MERGE})
-        private PasswordToken passwordToken;
+        private ConfirmationToken confirmationToken;
         @Enumerated(EnumType.STRING)
         private Roles role;
-        private Boolean locked = true;
+        private Boolean locked;
         private Boolean enabled = false;
-        private Boolean valid = false;
-        private Boolean isVerified = false;
+        private Boolean valid;
+        private Boolean isVerified;
 
         @Override
         public Collection<? extends GrantedAuthority> getAuthorities() {
                 return List.of(new SimpleGrantedAuthority(role.name()));
+        }
+
+        @Override
+        public String getUsername() {
+                return email;
         }
 
         @Override
