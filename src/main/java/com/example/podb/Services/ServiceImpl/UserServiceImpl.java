@@ -177,8 +177,6 @@ public class UserServiceImpl implements UserService, UserDetailsService {
 
         user.setEnabled(true);
         user.setLocked(false);
-        user.setIsVerified(true);
-        user.setValid(true);
 
         token.setValid(false);
 

@@ -3,9 +3,7 @@ package com.example.podb.Model;
 import com.example.podb.Enums.Roles;
 import com.example.podb.token.ConfirmationToken;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -14,36 +12,33 @@ import java.util.Collection;
 import java.util.List;
 
 @AllArgsConstructor
-@Data
+@Getter
+@Setter
 @NoArgsConstructor
 @Entity
-@Table(name = "local_user")
 public class LocalUser implements UserDetails {
         @Id
         @GeneratedValue(strategy = GenerationType.IDENTITY)
-        @Column(name = "id", nullable = false)
         private Long id;
 
 
-        @Column(name = "password", nullable = false, length = 1000)
+        @Column(nullable = false, length = 1000)
             private String password;
 
-        @Column(name = "email", nullable = false, unique = true, length = 320)
+        @Column(nullable = false, unique = true, length = 320)
         private String email;
 
-        @Column(name = "firstName", nullable = false)
+        @Column(nullable = false)
         private String firstName;
 
-        @Column(name = "lastName", nullable = false)
+        @Column(nullable = false)
         private String lastName;
         @OneToOne(mappedBy = "user", cascade = {CascadeType.PERSIST, CascadeType.MERGE})
         private ConfirmationToken confirmationToken;
         @Enumerated(EnumType.STRING)
         private Roles role;
-        private Boolean locked;
+        private Boolean locked = true;
         private Boolean enabled = false;
-        private Boolean valid;
-        private Boolean isVerified;
 
         @Override
         public Collection<? extends GrantedAuthority> getAuthorities() {

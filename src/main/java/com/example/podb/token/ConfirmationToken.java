@@ -25,7 +25,7 @@ public class ConfirmationToken {
     @Column(nullable = false)
     private LocalDateTime createdAt;
     private LocalDateTime expiresAt;
-    private boolean isValid = false;
+    private boolean isValid = true;
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(nullable = false, name = "local_user")
     private LocalUser user;

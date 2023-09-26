@@ -12,11 +12,10 @@ import org.springframework.stereotype.Service;
 @RequiredArgsConstructor
 @Slf4j
 public class EmailServiceImpl implements EmailService {
-    private final static Logger LOGGER = LoggerFactory.getLogger(EmailServiceImpl.class);
 
 
     private final JavaMailSender javaMailSender;
-    public static final String TEST_CONTENT = "Click on the link to verify your email";
+    public static final String TEST_CONTENT = "Click on the link to verify your email: http://localhost:8096/api/v1/users/verify?verificationToken=";
     public static final String TEST_SUBJECT = "Verify Email";
 
 

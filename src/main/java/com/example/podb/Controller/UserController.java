@@ -18,7 +18,6 @@ import org.springframework.web.bind.annotation.*;
 public class UserController {
 
     private final UserService userService;
-    private final AuthenticationManager authenticationManager;
 
     @PostMapping("register")
     public ResponseEntity<UserDTO> registerUser(@RequestBody UserDTO userDTO) {
@@ -31,10 +30,14 @@ public class UserController {
         return ResponseEntity.ok().body(response);
     }
 
-    @GetMapping("verify/{verificationToken}")
-    public ResponseEntity<Boolean> verifyEmail(@PathVariable String verificationToken){
-        Boolean result = userService.verifyEmail(verificationToken);
-        return ResponseEntity.ok(result);
+    @GetMapping("verify")
+    public ResponseEntity<?> verifyEmail(@RequestParam String verificationToken){
+        Boolean isVerified = userService.verifyEmail(verificationToken);
+        if (isVerified){
+            return ResponseEntity.ok("User successfully verified");
+        }
+        log.info("Verified!");
+        return ResponseEntity.badRequest().body("invalid verification token");
     }
     @GetMapping("/is-token-valid/{token}")
     public ResponseEntity<Boolean> isTokenValid(@PathVariable String token) {

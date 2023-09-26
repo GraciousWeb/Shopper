@@ -23,45 +23,36 @@ public class SecurityFilterChainConfig {
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception {
-//        return httpSecurity
-//                .csrf(AbstractHttpConfigurer::disable)
-//                .authorizeHttpRequests(authorize ->
-//                                authorize
-//                                        .requestMatchers(HttpMethod.POST, "/api/v1/admins/createAdmin").permitAll()
-//
-//                                        .requestMatchers(HttpMethod.PUT, "/api/v1/admins/updateProduct/*").hasAuthority("ADMIN")
-//                                        .requestMatchers(HttpMethod.DELETE, "/api/v1/admins/deleteProduct/*").hasAuthority("ADMIN")
-//                                       .requestMatchers(HttpMethod.POST, "/api/v1/admins/addProduct").hasAuthority("ADMIN")
-//
-//
-//
-//                )
-//                .authorizeHttpRequests(authorize ->
-//                        authorize
-//                                .requestMatchers("/api/v1/users/login", "/api/v1/users/register").permitAll()
-//                )
-//
-//                        .authorizeHttpRequests((authorize) -> authorize
-//                        .requestMatchers(GET, "/api/v1/product/viewProduct/*").permitAll()
-//                        )
-//                        .authorizeHttpRequests((authorize) -> authorize
-//                        .requestMatchers(GET, "/api/v1/product/getAllProducts").permitAll()
-//                        )
-//
-//                        .sessionManagement((session) ->
-//                                session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
-//                        .authenticationProvider(authenticationProvider)
-//                        .addFilterBefore(filterConfiguration, UsernamePasswordAuthenticationFilter.class)
-//                .build();
-//
-//
-//                }
-//    }
-        return httpSecurity.authorizeHttpRequests(authorizationManagerRequestMatcherRegistry
-                        -> authorizationManagerRequestMatcherRegistry.requestMatchers("/", "/verify-email", "/login", "/register/**").permitAll().anyRequest().authenticated())
-                .formLogin(httpSecurityFormLoginConfigurer -> httpSecurityFormLoginConfigurer.loginPage("/verifyEmail"))
-                .logout(httpSecurityLogoutConfigurer -> httpSecurityLogoutConfigurer.logoutUrl("/logout"))
+        return httpSecurity
+                .csrf(AbstractHttpConfigurer::disable)
+                .authorizeHttpRequests(authorize ->
+                        authorize
+                                .requestMatchers(HttpMethod.POST, "/api/v1/admins/createAdmin").permitAll()
+                                .requestMatchers(HttpMethod.PUT, "/api/v1/admins/updateProduct/*").hasAuthority("ADMIN")
+                                .requestMatchers(HttpMethod.DELETE, "/api/v1/admins/deleteProduct/*").hasAuthority("ADMIN")
+                                .requestMatchers(HttpMethod.POST, "/api/v1/admins/addProduct").hasAuthority("ADMIN")
+
+                )
+                .authorizeHttpRequests(authorize ->
+                        authorize
+                                .requestMatchers("/api/v1/users/**", "/error").permitAll()
+                                .requestMatchers("/api/v1/users/verify/**").permitAll()
+                                .requestMatchers("/users/**").permitAll()
+                )
+
+                .authorizeHttpRequests((authorize) -> authorize
+                        .requestMatchers(GET, "/api/v1/product/viewProduct/*").permitAll()
+                )
+                .authorizeHttpRequests((authorize) -> authorize
+                        .requestMatchers(GET, "/api/v1/product/getAllProducts").permitAll()
+                )
+
+                .sessionManagement((session) ->
+                        session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+                .authenticationProvider(authenticationProvider)
+                .addFilterBefore(filterConfiguration, UsernamePasswordAuthenticationFilter.class)
                 .build();
+
     }
 }
 
